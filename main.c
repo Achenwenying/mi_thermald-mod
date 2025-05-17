@@ -55,12 +55,12 @@ int main()
                     if (capacity <= 80)
                     {
                         // 电量 ≤ 80%，设置电流为 7,000,000 µA（7A），约 35W（5V x 7A）
-                        control_charge_speed("/sys/class/power_supply/battery/constant_charge_current", 7000000);
+                        control_charge_speed("/sys/class/power_supply/battery/constant_charge_current", 10000000);
                     }
                     else
                     {
                         // 电量 > 80%，设置电流为 4,000,000 µA（4A），约 20W（5V x 4A）
-                        control_charge_speed("/sys/class/power_supply/battery/constant_charge_current", 4000000);
+                        control_charge_speed("/sys/class/power_supply/battery/constant_charge_current", 10000000);
                     }
                 }
                 // 快速充电逻辑
@@ -79,15 +79,12 @@ int main()
                     }
                     else if (capacity <= 80)
                     {
-                        // 电量 31%~80%，线性降低电流（10000000 - (capacity - 30) * 100000）
-                        // 例如：capacity = 50 → current = 8A → 40W（5V x 8A）
-                        int current = 10000000 - (capacity - 30) * 100000;
-                        control_charge_speed("/sys/class/power_supply/battery/constant_charge_current", current);
+                        control_charge_speed("/sys/class/power_supply/battery/constant_charge_current", 10000000);
                     }
                     else
                     {
                         // 电量 > 80%，设置电流为 5,000,000 µA（5A），约 25W（5V x 5A）
-                        control_charge_speed("/sys/class/power_supply/battery/constant_charge_current", 5000000);
+                        control_charge_speed("/sys/class/power_supply/battery/constant_charge_current", 10000000);
                     }
                 }
 
